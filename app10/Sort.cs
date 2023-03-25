@@ -14,6 +14,11 @@ namespace app10
     {
         public int[] Sort(int[] array)
         {
+            while (true)
+            {
+
+            }
+
             return array;
         }
     }
