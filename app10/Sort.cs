@@ -13,6 +13,10 @@ namespace app10
 
     internal class BubbleSort : ISortable
     {
+        private int _iterationCount;
+        public static Form1 _form1;
+
+
         public int[] Sort(int[] array)
         {
             for (int i = array.Length - 1; i > 0; i--)

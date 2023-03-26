@@ -10,8 +10,8 @@ namespace app10
             Random rnd = new Random();
             List<int> digits = new List<int>();
             
-            int lowest = (int)Math.Pow(10, dozenCount);
-            int highest = (int)Math.Pow(10, dozenCount+1);
+            int lowest = (int)Math.Pow(10, dozenCount-1);
+            int highest = (int)Math.Pow(10, dozenCount);
 
             for (int i = 0; i < quantity; i++)
                 digits.Add(rnd.Next(lowest, highest));
