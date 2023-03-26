@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,23 +15,57 @@ namespace app10
     internal class BubbleSort : ISortable
     {
         private int _iterationCount;
-        public static Form1 form1;
+        public static Form1? form1;
 
 
         public int[] Sort(int[] array)
         {
-            for (int i = array.Length - 1; i > 0; i--)
-                if (array[i] < array[i - 1])
-                    (array[i], array[i - 1]) = (array[i - 1], array[i]);
+            for (int i = array.Length; i > 0; i--)
+            {
+                for (int k = 0; k < i - 1; k++)
+                {
+                    if (array[k] < array[k - 1])
+                    {
+                        (array[k], array[k - 1]) = (array[k - 1], array[k]);
+                        Print('}', '{', k, k - 1, array);
+                    }
+
+                    else
+                        Print(')', '(', k, k - 1, array);
+                }
+            }
 
             return array;
+        }
+
+        private bool Print(char chs, char che, int first, int second, int[] array)
+        {
+            if (form1 is null)
+                return false;
+
+            string output = "";
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i == first)
+                    output += array[i].ToString() + ", " + chs;
+
+                else if (i == second)
+                    output += che + array[i].ToString() + ", " ;
+
+                else
+                    output += array[i].ToString() + ", ";
+            }
+
+            form1.AddToHistory(output);
+            return true;
         }
     }
 
     internal class RadixSort : ISortable
     {
         private int _iterationCount;
-        public static Form1 form1;
+        public static Form1? form1;
 
         public int[] Sort(int[] array)
         {
