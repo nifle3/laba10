@@ -5,6 +5,8 @@ namespace app10
         public Form1()
         {
             InitializeComponent();
+            BubbleSort.form1 = this;
+            RadixSort.form1 = this;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -20,5 +22,40 @@ namespace app10
 
         public void ClearHistory() => 
             History.Items.Clear();
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Context? com = KUI2();
+
+            if (com != null)
+            {
+                com.ExecutableAlgorithm();
+            }
+        }
+
+        private Context? KUI2()
+        {
+            if (!(Radix.Checked || Bubble.Checked))
+            {
+                label1.Text = "Выберите сортировку";
+                return null;
+            }
+
+            if (History.Items.Count == 0)
+            {
+                label1.Text = "Создайте массив";
+                return null;
+            }
+
+            label1.Text = String.Empty;
+
+            if (Radix.Checked)
+                return new Context(new RadixSort());
+
+            else if (Bubble.Checked)
+                return new Context(new BubbleSort());
+
+            return null;
+        }
     }
 }

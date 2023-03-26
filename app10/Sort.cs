@@ -14,7 +14,7 @@ namespace app10
     internal class BubbleSort : ISortable
     {
         private int _iterationCount;
-        public static Form1 _form1;
+        public static Form1 form1;
 
 
         public int[] Sort(int[] array)
@@ -29,6 +29,9 @@ namespace app10
 
     internal class RadixSort : ISortable
     {
+        private int _iterationCount;
+        public static Form1 form1;
+
         public int[] Sort(int[] array)
         {
             int max = array.Max().ToString().Length;
