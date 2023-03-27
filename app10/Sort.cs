@@ -85,11 +85,38 @@ namespace app10
                     lists[temp].Add(array[i]);
                 }
                 array = ListToArray(lists);
+                Print(array, max - step - 1);
+
                 for (int i = 0; i < 10; i++)
                     lists[i].Clear();
             }
 
             return array;
+        }
+
+        private bool Print(int[] array, int step)
+        {
+            if (form1 is null)
+                return false;
+
+            string output = "";
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                string a = array[i].ToString();
+
+                if (a.Length >= step)
+                {
+                    a = a.Insert(step, "(");
+                    a = a.Insert(step + 2, ")");
+                }
+
+                output += a + ", ";
+            }
+
+            form1.AddToHistory(output);
+
+            return true;
         }
 
         private int[] ListToArray(List<List<int>> arr)
