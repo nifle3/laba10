@@ -2,6 +2,8 @@ namespace app10
 {
     public partial class Form1 : Form
     {
+        internal InFile inFile = new InFile();
+        
         public Form1()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace app10
             if (com != null)
             {
                 com.ExecutableAlgorithm();
+                inFile.Reset();
             }
         }
 
@@ -68,6 +71,24 @@ namespace app10
         private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.ShowDialog(this);
+
+            inFile.path = saveFileDialog1.FileName;
+
+            inFile.Into();
+        }
+
+        private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            saveFileDialog1.ShowDialog(this);
+
+            inFile.path = saveFileDialog1.FileName;
+
+            inFile.Into();
         }
     }
 }

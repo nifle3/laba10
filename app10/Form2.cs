@@ -51,6 +51,7 @@ namespace app10
                 answer += Context.array[i].ToString() + " , ";
 
             _form1.AddToHistory(answer);
+            _form1.inFile.AddActive("Базовый массив \n" + answer);
 
             return true;
         }

@@ -28,16 +28,21 @@ namespace app10
             {
                 for (int k = 0; k < i - 1; k++)
                 {
+                    char ch1, ch2;
                     if (array[k] > array[k + 1])
                     {
                         _ifiCount++;
                         (array[k], array[k + 1]) = (array[k + 1], array[k]);
-                        Print('}', '{', k, k - 1, array);
+                        (ch1, ch2) = ('}', '{');
                     }
 
                     else
-                        Print(')', '(', k, k - 1, array);
+                        (ch1, ch2) = (')', '(');
+
                     _iterationCount++;
+
+                    Print(ch1, ch2, k, k +1 , array);
+                    form1.inFile.AddActive($"Сравниваемые: {array[k]} и {array[k+1]}, Количество итераций: {_iterationCount.ToString()}, Количество ифов: {_ifiCount.ToString()}");
                 }
                 _iterationCount++;
             }
@@ -66,16 +71,17 @@ namespace app10
             for (int i = 0; i < array.Length; i++)
             {
                 if (i == first)
-                    output += array[i].ToString() + ", " + chs;
+                    output += che + array[i].ToString() + ", ";
 
                 else if (i == second)
-                    output += che + array[i].ToString() + ", " ;
+                    output += array[i].ToString() + chs + ", " ;
 
                 else
                     output += array[i].ToString() + ", ";
             }
 
             form1.AddToHistory(output);
+            form1.inFile.AddActive(output);
             return true;
         }
     }
@@ -107,14 +113,17 @@ namespace app10
                     _iterationCount++;
                 }
                 array = ListToArray(lists);
-                Print(array, max - step - 1);
 
                 for (int i = 0; i < 10; i++)
                 {
                     lists[i].Clear();
                     _iterationCount++;
                 }
+
                 _iterationCount++;
+                form1.inFile.AddActive($"Шаг: {step}, Количество итераций: {_iterationCount.ToString()}, Количество ифов: {_ifiCount.ToString()}");
+                Print(array, max - step - 1);
+
             }
 
             watch.Stop();
@@ -152,6 +161,7 @@ namespace app10
             }
 
             form1.AddToHistory(output);
+            form1.inFile.AddActive(output);
 
             return true;
         }
