@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,25 +15,42 @@ namespace app10
 
     internal class BubbleSort : ISortable
     {
-        private int _iterationCount;
+        private int _iterationCount = 0;
+        private int _ifiCount = 0;
         public static Form1? form1;
-
 
         public int[] Sort(int[] array)
         {
+            Stopwatch watch = new();
+            watch.Start();
+
             for (int i = array.Length; i > 0; i--)
             {
                 for (int k = 0; k < i - 1; k++)
                 {
-                    if (array[k] < array[k - 1])
+                    if (array[k] > array[k + 1])
                     {
-                        (array[k], array[k - 1]) = (array[k - 1], array[k]);
+                        _ifiCount++;
+                        (array[k], array[k + 1]) = (array[k + 1], array[k]);
                         Print('}', '{', k, k - 1, array);
                     }
 
                     else
                         Print(')', '(', k, k - 1, array);
+                    _iterationCount++;
                 }
+                _iterationCount++;
+            }
+
+            watch.Stop();
+            var resultTime = watch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}", resultTime.Hours, resultTime.Minutes, resultTime.Seconds, resultTime.Nanoseconds);
+
+            if (form1 is not null)
+            {
+                form1.Ifi.Text = _ifiCount.ToString();
+                form1.Iter.Text = _iterationCount.ToString();
+                form1.Time.Text = elapsedTime.ToString();
             }
 
             return array;
@@ -64,13 +82,16 @@ namespace app10
 
     internal class RadixSort : ISortable
     {
-        private int _iterationCount;
+        private int _iterationCount = 0;
+        private int _ifiCount = 0;
         public static Form1? form1;
 
         public int[] Sort(int[] array)
         {
             int max = array.Max().ToString().Length;
             List<List<int>> lists = new List<List<int>>(10);
+            Stopwatch watch = new();
+            watch.Start();
 
             for (int i = 0; i < 10; i++)
             {
@@ -83,12 +104,28 @@ namespace app10
                 {
                     int temp = (array[i] % (int)Math.Pow(10, step + 1)) / (int)Math.Pow(10, step);
                     lists[temp].Add(array[i]);
+                    _iterationCount++;
                 }
                 array = ListToArray(lists);
                 Print(array, max - step - 1);
 
                 for (int i = 0; i < 10; i++)
+                {
                     lists[i].Clear();
+                    _iterationCount++;
+                }
+                _iterationCount++;
+            }
+
+            watch.Stop();
+            var resultTime = watch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}", resultTime.Hours, resultTime.Minutes, resultTime.Seconds, resultTime.Nanoseconds);
+            
+            if (form1 is not null)
+            {
+                form1.Ifi.Text = _ifiCount.ToString();
+                form1.Iter.Text = _iterationCount.ToString();
+                form1.Time.Text = elapsedTime;
             }
 
             return array;
@@ -124,8 +161,13 @@ namespace app10
             List<int> ints = new List<int>();
 
             for (int i = 0; i < arr.Count; i++)
+            {
                 for (int j = 0; j < arr[i].Count; j++)
+                {
                     ints.Add(arr[i][j]);
+                    _iterationCount++;
+                }
+            }
 
             return ints.ToArray();
         }

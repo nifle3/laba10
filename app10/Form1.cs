@@ -57,5 +57,17 @@ namespace app10
 
             return null;
         }
+
+
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
