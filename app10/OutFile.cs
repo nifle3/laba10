@@ -10,13 +10,16 @@ namespace app10
 {
     internal class OutFile
     {
-        public static string path;
+        public string? Path { set; get; }
 
-        public static int[] Out()
+        public void Out()
         {
+            if (Path is null)
+                return;
+
             List<int> output = new List<int>();
-            
-            using(StreamReader sr = new StreamReader(path, System.Text.Encoding.Default)) 
+
+            using(StreamReader sr = new StreamReader(Path, System.Text.Encoding.Default)) 
             {
                 string[] time;
                 string input = sr.ReadToEnd();
@@ -29,7 +32,6 @@ namespace app10
             }
 
             Context.array = output.ToArray();
-            return output.ToArray();
         }
     }
 }

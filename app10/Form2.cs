@@ -13,12 +13,9 @@ namespace app10
 {
     public partial class Form2 : Form
     {
-        private Form1 _form1;
-
         public Form2(Form1 form1)
         {
             InitializeComponent();
-            _form1 = form1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,14 +28,6 @@ namespace app10
 
             else
                 Context.array = Randomizer.GetRandomNumber(a);
-
-            string answer = "";
-
-            for (int i = 0; i < Context.array.Length; i++)
-                answer += Context.array[i].ToString() + " , ";
-
-            _form1.ClearHistory();
-            _form1.AddToHistory(answer);
         }
     }
 }

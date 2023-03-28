@@ -22,6 +22,17 @@ namespace app10
             set
             {
                 _array = value;
+
+                if (form1 is null || _array is null)
+                    return;
+
+                form1.ClearHistory();
+                string s = "";
+                for (int i = 0;i < _array.Length; i++)
+                    s += _array[i].ToString() + " , ";
+
+                form1.AddToHistory(s);
+
             }
         }
 

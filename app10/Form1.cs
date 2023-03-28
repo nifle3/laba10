@@ -72,25 +72,12 @@ namespace app10
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            History.Items.Clear();
-
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
 
-            OutFile.path = saveFileDialog1.FileName;
-
-            int[] answer = OutFile.Out();
-
-            inFile.AddActive("Базовый массив \n" + answer);
-
-            if (Context.array is null)
-                return;
-
-            string toHistory = "";
-            for (int i = 0; i < Context.array.Length; i++)
-                 toHistory += Context.array[i].ToString() + " , ";
-
-            History.Items.Add(toHistory);
+            OutFile outFile = new();
+            outFile.Path = saveFileDialog1.FileName;
+            outFile.Out();
         }
     }
 }
