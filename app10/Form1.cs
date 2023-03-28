@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+
 namespace app10
 {
     public partial class Form1 : Form
@@ -7,88 +9,88 @@ namespace app10
         public Form1()
         {
             InitializeComponent();
-            BubbleSort.form1 = this;
-            RadixSort.form1 = this;
+            Context.form1 = this;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new(this);
+            Form2 form2 = new Form2(this);
             form2.Show();
         }
 
-        public void AddToHistory(string operation)
-        {
+        public void AddToHistory(string operation)=>
             History.Items.Add(operation);
-        }
 
         public void ClearHistory() => 
             History.Items.Clear();
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Context? com = KUI2();
-
-            if (com != null)
-            {
-                com.ExecutableAlgorithm();
-                inFile.Reset();
-            }
-        }
-
-        private Context? KUI2()
-        {
+            Context? executable = null;
             if (!(Radix.Checked || Bubble.Checked))
             {
                 label1.Text = "Выберите сортировку";
-                return null;
+                return;
             }
 
-            if (History.Items.Count == 0)
+            if (Context.array is null)
             {
                 label1.Text = "Создайте массив";
-                return null;
+                return;
             }
 
             label1.Text = String.Empty;
 
             if (Radix.Checked)
-                return new Context(new RadixSort());
+                executable = new Context(new RadixSort());
 
             else if (Bubble.Checked)
-                return new Context(new BubbleSort());
+                executable = new Context(new BubbleSort());
 
-            return null;
-        }
+            if (executable == null)
+                return;
 
-
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-
+            executable.ExecutableAlgorithm();
+            inFile.Reset();
         }
 
         private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-
+            Form3 form3 = new Form3();
+            form3.Show();
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.ShowDialog(this);
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
 
             inFile.path = saveFileDialog1.FileName;
-
             inFile.Into();
         }
 
-        private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.ShowDialog(this);
+            History.Items.Clear();
 
-            inFile.path = saveFileDialog1.FileName;
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
 
-            inFile.Into();
+            OutFile.path = saveFileDialog1.FileName;
+
+            int[] answer = OutFile.Out();
+
+            inFile.AddActive("Базовый массив \n" + answer);
+
+            if (Context.array is null)
+                return;
+
+            string toHistory = "";
+            for (int i = 0; i < Context.array.Length; i++)
+                 toHistory += Context.array[i].ToString() + " , ";
+
+            History.Items.Add(toHistory);
         }
     }
 }
