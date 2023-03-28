@@ -75,6 +75,7 @@ namespace app10
             string type = _type is TypeOfSort.Radix ? "Поразрядовый" : "Пузырьком";
             string info = $"И:{_sort.IfiCount}, И:{_sort.IterationCount}, Т:{elapsedTime}";
             string[] toGrid = {type, $"Количество: {array.Length}", info };
+            Form3.AddToList(toGrid);
         }
     }
 }

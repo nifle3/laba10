@@ -14,13 +14,19 @@ namespace app10
     {
         private static List<List<string>> _strings= new List<List<string>>();
 
-        public void AddToList(string[] s)=>
+        public static void AddToList(string[] s)=>
              _strings.Add(s.ToList());
 
         public Form3()
         {
             InitializeComponent();
 
+            dataGridView1.Columns.Add("about", "Вид сортировки");
+            dataGridView1.Columns.Add("Quan", "Кол-во элементов");
+            dataGridView1.Columns.Add("Info", "Информация");
+
+            for (int i = 0; i < _strings.Count; ++i)
+                dataGridView1.Rows.Add(_strings[i][0], _strings[i][1], _strings[i][2]);
         }
     }
 }
