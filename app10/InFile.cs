@@ -10,13 +10,13 @@ namespace app10
 {
     internal class InFile
     {
-        private List<string> output = new List<string>();
+        private static List<string> output = new List<string>();
         public string? path;
 
-        public void AddActive (string active)=>
-            output.Add(active);
- 
-        public void Reset()=>
+        public static void AddString(string add)=>
+            output.Add(add);
+
+        public static void Clear()=> 
             output.Clear();
 
         public void Into()

@@ -9,12 +9,17 @@ using System.Windows.Forms;
 
 namespace app10
 {
+    enum TypeOfSort
+    {
+        Bubble,Radix
+    }
     internal class Context
     {
         private static int[]? _array;
         public static Form1? form1;
 
         private ISortable? _sort;
+        private TypeOfSort _type;
 
         public static int[]? array
         {
@@ -33,10 +38,13 @@ namespace app10
 
                 form1.AddToHistory(s);
 
+                InFile.Clear();
+                InFile.AddString("Не отсортированный массив\n" + s);
+
             }
         }
 
-        public Context(ISortable? sort = null) => _sort = sort;
+        public Context(TypeOfSort type, ISortable? sort = null) => (_sort,_type) = (sort, type);
 
         public void ExecutableAlgorithm() 
         {
@@ -50,6 +58,7 @@ namespace app10
             foreach (string outputString in _sort)
             {
                 form1.AddToHistory(outputString);
+                InFile.AddString(outputString);
             }
 
             watch.Stop();
@@ -62,6 +71,10 @@ namespace app10
             form1.Ifi.Text = _sort.IfiCount.ToString();
             form1.Iter.Text = _sort.IterationCount.ToString();
             form1.Time.Text = elapsedTime;
+
+            string type = _type is TypeOfSort.Radix ? "Поразрядовый" : "Пузырьком";
+            string info = $"И:{_sort.IfiCount}, И:{_sort.IterationCount}, Т:{elapsedTime}";
+            string[] toGrid = {type, $"Количество: {array.Length}", info };
         }
     }
 }

@@ -1,11 +1,10 @@
 using System.Net.Http.Headers;
+using System.Security.Cryptography.X509Certificates;
 
 namespace app10
 {
     public partial class Form1 : Form
-    {
-        internal InFile inFile = new InFile();
-        
+    {   
         public Form1()
         {
             InitializeComponent();
@@ -42,16 +41,15 @@ namespace app10
             label1.Text = String.Empty;
 
             if (Radix.Checked)
-                executable = new Context(new RadixSort());
+                executable = new Context(TypeOfSort.Bubble, new RadixSort());
 
             else if (Bubble.Checked)
-                executable = new Context(new BubbleSort());
+                executable = new Context(TypeOfSort.Radix, new BubbleSort());
 
             if (executable == null)
                 return;
 
             executable.ExecutableAlgorithm();
-            inFile.Reset();
         }
 
         private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -62,6 +60,7 @@ namespace app10
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            InFile inFile = new();
 
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;

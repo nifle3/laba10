@@ -44,6 +44,7 @@ namespace app10
                     IterationCount++;
 
                     yield return Print(ch1, ch2, k, k + 1, Array);
+                    InFile.AddString($"Сравниваем{Array[k]} и {Array[k + 1]}, кол-во итераций {IterationCount}, кол-во ифоф {IfiCount}");
                 }
 
                 IterationCount++;
@@ -107,6 +108,7 @@ namespace app10
 
                 IterationCount++;
                 yield return Print(Array, max - step - 1);
+                InFile.AddString($"Сортируется по {max - step}, кол-во итераций {IterationCount}, кол-во ифоф {IfiCount}");
             }
         }
 
