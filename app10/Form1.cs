@@ -28,23 +28,23 @@ namespace app10
             Context? executable = null;
             if (!(Radix.Checked || Bubble.Checked))
             {
-                label1.Text = "Выберите сортировку";
+                label1.Text = "Г‚Г»ГЎГҐГ°ГЁГІГҐ Г±Г®Г°ГІГЁГ°Г®ГўГЄГі";
                 return;
             }
 
             if (Context.array is null)
             {
-                label1.Text = "Создайте массив";
+                label1.Text = "Г‘Г®Г§Г¤Г Г©ГІГҐ Г¬Г Г±Г±ГЁГў";
                 return;
             }
 
             label1.Text = String.Empty;
 
             if (Radix.Checked)
-                executable = new Context(TypeOfSort.Bubble, new RadixSort());
+                executable = new Context(TypeOfSort.Radix, new RadixSort());
 
             else if (Bubble.Checked)
-                executable = new Context(TypeOfSort.Radix, new BubbleSort());
+                executable = new Context(TypeOfSort.Bubble, new BubbleSort());
 
             if (executable == null)
                 return;
