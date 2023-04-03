@@ -73,7 +73,7 @@ namespace app10
             form1.Time.Text = elapsedTime;
 
             string type = _type is TypeOfSort.Radix ? "Поразрядовый" : "Пузырьком";
-            string info = $"И:{_sort.IfiCount}, И:{_sort.IterationCount}, Т:{elapsedTime}";
+            string info = $"Иф:{_sort.IfiCount}, И:{_sort.IterationCount}, Т:{elapsedTime}";
             string[] toGrid = {type, $"Количество: {array.Length}", info };
             Form3.AddToList(toGrid);
         }
